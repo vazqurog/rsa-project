@@ -23,12 +23,18 @@ class RSAEncryption:
         self.x = 1
         # Since the binary representation starts with 0b, we subtract 2 from the range
         # and add 2 to each iteration index to handle that properly
-        # this way when i am handling the data in the last the conversion back to an integer works correctly
+        # makes for easier type conversion in the last assignment for self.x
 
         for i in range(len(self.n) - 2):
+
             if self.n[i+2] == '1':
                 self.x = (self.x * self.power) % self.mod
                 self.power = (self.power * self.power) % self.mod
+            print(f"Binary Digit: {self.n[i+2]}")
+            print(f"X: {self.x}")
+            print(f"Power: {self.power}")
+            print(f"{self}")
+
 
         self.x = (self.base**int(self.n, base=2)) % self.mod
         return self.x
