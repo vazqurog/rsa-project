@@ -1,10 +1,15 @@
 import math
 
 def rsa(e, n, m):
+    """
+    simulating the rsa encryption
+    """
     return f"C = {(m**e) % n}"
 
 def decrypt(e, n, d=38597):
+    "decrypting the original encryption"
     c = [16560, 15475, 43198, 36141]
+        #EM     #ER    #AL    #DX
     decrypted_vals = []
 
     for i in c:
