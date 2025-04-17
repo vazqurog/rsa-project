@@ -17,29 +17,31 @@ class RSAEncryption:
     
     def modular_exponentiation(self):
         # convert the exponent to binary
-        self.n = bin(self.n)
-
+        bn = bin(self.n)
+        bn =  bn[2:]
         self.power = self.base % self.mod
         self.x = 1
-        # Since the binary representation starts with 0b, we subtract 2 from the range
-        # and add 2 to each iteration index to handle that properly
-        # makes for easier type conversion in the last assignment for self.x
-
-        for i in range(len(self.n) - 2):
-
-            if self.n[i+2] == '1':
+        #Slice the oringial binary by 2 to get rid of leading 0b
+        # issue, not checking from right to left, reverse the binary string
+        for i in bn[::-1]:
+            if i == '1':
                 self.x = (self.x * self.power) % self.mod
-                self.power = (self.power * self.power) % self.mod
-            print(f"Binary Digit: {self.n[i+2]}")
+            self.power = (self.power * self.power) % self.mod
+            print(f"Binary Digit: {i}")
             print(f"X: {self.x}")
             print(f"Power: {self.power}")
-            print(f"{self}")
-
-
-        self.x = (self.base**int(self.n, base=2)) % self.mod
+    # do not use int conversion, Happens already in the loop
+        print(f"correct output: {pow(self.base, self.n, self.mod)}")
         return self.x
+
 
 if __name__ == "__main__":
     r1 = RSAEncryption()
     print(r1.modular_exponentiation())
+
+    """
+Integer Base (b): 3257106254
+Enter Exponent (n): 102567813
+Enter Modulus (m): 503421789 
+    """
     
